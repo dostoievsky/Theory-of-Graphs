@@ -31,3 +31,18 @@ freeGraph(Graph* graph)
     free(graph);
 }
 
+void 
+addEdge(Graph* graph, int origin, int destiny, int weight) 
+{
+   Edge* newEdge = (Edge*)malloc(sizeof(Edge));
+   newEdge->destiny = destiny;
+   newEdge->weight = weight;
+   newEdge->next = graph->vertices[origin].edges;
+   graph->vertices[origin].edges = newEdge;
+}
+
+void
+BFS(Graph* graph, int index)
+{
+
+}
