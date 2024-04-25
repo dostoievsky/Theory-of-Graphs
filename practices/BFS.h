@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 typedef struct Edge
 {
     int destiny;
@@ -16,3 +18,6 @@ typedef struct Graph
     int vertexCount;
     struct Vertex* vertices;
 } Graph;
+
+Graph* initGraph(int vertexCount);
+void freeGraph(Graph* graph);
