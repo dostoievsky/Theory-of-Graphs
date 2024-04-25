@@ -44,29 +44,31 @@ addEdge(Graph* graph, int origin, int destiny, int weight)
 void
 BFS(Graph* graph, int index)
 {
-    /*
-    create an empty queue
-    mark graph->verticies[index].visited = 1;
-    insert graph->verticies[index] on queue;
-    while queue is not empty
-        pop queue
-        for each neighbor w of v do
-            if w is not visited then 
-                visit the edge {v,w}
-                push w in queue
-                visit w
-            else
-               if {v,w} is not visited 
-                   visit {v,w}
-               endif
-            endif
-        endfor 
-    endwhile
-    */
+    Queue q;
+    initQueue(&q, graph->vertexCount);
+    graph->vertices[index].visited = 1;
+    enqueue(&q, graph->vertices[index]);
+    while(!isQueueEmpty(&q))
+    {
+        Vertex* vertex;
+        dequeue(&q, vertex);
+        Edge* edge = vertex->edges;
+        while (edge)
+        {
+            if (!graph->vertices[edge->destiny].visited) 
+            {
+                graph->vertices[edge->destiny].visited = 1;
+                enqueue(&q, graph->vertices[edge->destiny]);
+            }
+            edge = edge->next;
+        }
+    }
+    freeQueue(&q);
 }
 
 void 
-initQueue(Queue* q, int size) {
+initQueue(Queue* q, int size) 
+{
     q->items = (Vertex*)malloc(sizeof(Vertex) * size);  
     q->capacity = size;
     q->front = 0;
@@ -76,25 +78,73 @@ initQueue(Queue* q, int size) {
 
 
 void 
-enqueue(Queue* q, Vertex element) {
+enqueue(Queue* q, Vertex element) 
+{
     q->rear = (q->rear + 1) % q->capacity; 
     q->items[q->rear] = element; 
     q->size++;
 }
 
 void
-dequeue(Queue* q, Vertex* element) {
+dequeue(Queue* q, Vertex* element)
+{
     *element = q->items[q->front]; 
     q->front = (q->front + 1) % q->capacity; 
     q->size--;
 }
 
 void 
-freeQueue(Queue* q) {
+freeQueue(Queue* q) 
+{
     free(q->items); 
     q->items = NULL;
     q->capacity = 0;
     q->front = 0;
     q->rear = -1;
     q->size = 0;
+}
+
+void 
+initstack(Stack *s) 
+{
+    s->items = NULL;
+    s->top = -1;
+}
+
+void 
+push(Stack *s, int item) 
+{
+    int newTop = s->top + 1;
+    int *newItems = realloc(s->items, (newTop + 1) * sizeof(int));
+    s->items = newItems;
+    s->items[newTop] = item;
+    s->top = newTop;
+}
+
+void 
+pop(Stack *s, int *item) 
+{
+    if (isStackEmpty(s)) { return; }
+
+    *item = s->items[s->top];
+    s->top--;
+
+    if (s->top >= 0) 
+    {
+        int *newItems = realloc(s->items, (s->top + 1) * sizeof(int));
+        if (newItems) {
+            s->items = newItems;
+        }
+    } else {
+        free(s->items);
+        s->items = NULL;
+    }
+
+}
+
+void freeStack(Stack *s) 
+{
+    free(s->items);
+    s->items = NULL;
+    s->top = -1;
 }
