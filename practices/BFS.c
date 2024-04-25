@@ -64,3 +64,37 @@ BFS(Graph* graph, int index)
     endwhile
     */
 }
+
+void 
+initQueue(Queue* q, int size) {
+    q->items = (Vertex*)malloc(sizeof(Vertex) * size);  
+    q->capacity = size;
+    q->front = 0;
+    q->rear = -1;      
+    q->size = 0;
+}
+
+
+void 
+enqueue(Queue* q, Vertex element) {
+    q->rear = (q->rear + 1) % q->capacity; 
+    q->items[q->rear] = element; 
+    q->size++;
+}
+
+void
+dequeue(Queue* q, Vertex* element) {
+    *element = q->items[q->front]; 
+    q->front = (q->front + 1) % q->capacity; 
+    q->size--;
+}
+
+void 
+freeQueue(Queue* q) {
+    free(q->items); 
+    q->items = NULL;
+    q->capacity = 0;
+    q->front = 0;
+    q->rear = -1;
+    q->size = 0;
+}
