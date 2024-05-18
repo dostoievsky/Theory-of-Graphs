@@ -1,18 +1,37 @@
+CC=cc
 CFLAGS=-I./src -std=c11 -Wall
 LDFLAGS=
 
 TARGET=BFS
+SRC_DIR=src 
 
-SOURCES!=find src -name '*.c'
+SOURCES!=find $(SRC_DIR) -name '*.c'
 OBJECTS=$(SOURCES:.c=.o)
 
-all: $(TARGET)
+build: $(TARGET)
 
 $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
 
 %.o: %.c
-	cc -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $< -o $@
 
+TEST_TARGET=run_tests
+TESTS_DIR=tests
+
+TEST_SOURCES!=find $(TESTS_DIR) -name '*.c'
+TEST_OBJECTS=$(TEST_SOURCES:.c=.o)
+MAIN_OBJECTS=$(filter-out src/principal.o,$(SOURCES:.c=.o))
+
+test: $(TEST_TARGET)
+
+$(TEST_TARGET): $(TEST_OBJECTS) $(MAIN_OBJECTS)
+	@echo "Compiling tests..."
+	$(CC) $(TEST_OBJECTS) $(MAIN_OBJECTS) -o $(TEST_TARGET) $(LDFLAGS)
+	@echo "Running test..."
+	./$(TEST_TARGET)
 clean:
-	rm -f $(TARGET) $(OBJECTS) compile_commands.json
+	rm -f $(TARGET) $(TEST_BINARIES) $(OBJECTS) $(TEST_OBJECTS)
+
+.PHONY: build test clean
+
