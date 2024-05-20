@@ -1,10 +1,22 @@
 #include <assert.h>
+#include <time.h>
 #include <stdlib.h>
+
 #include "BFS.h"
 
+#define RANDOM_MAX 1000
+
+int
+getRandomValue()
+{
+    srand(time(NULL));
+    return rand() % RANDOM_MAX + 1;
+}
+
 void 
-test_initGraph() {
-    int vertexCount = 5;
+test_initGraph()
+{
+    int vertexCount = getRandomValue();
     Graph *graph = initGraph(vertexCount);
     assert(graph != NULL);
     assert(graph->vertexCount == vertexCount);
@@ -12,14 +24,12 @@ test_initGraph() {
         assert(graph->vertices[i].edges == NULL);
         assert(graph->vertices[i].visited == 0);
     }
-    free(graph->vertices);
-    free(graph);
 }
 
-
 void 
-test_freeGraph() {
-    int vertexCount = 5;
+test_freeGraph()
+{
+    int vertexCount = getRandomValue();
     Graph *graph = initGraph(vertexCount);
     assert(graph != NULL);
     assert(graph->vertexCount == vertexCount);
@@ -28,7 +38,8 @@ test_freeGraph() {
 }
 
 int 
-main() {
+main() 
+{
     test_initGraph();
     test_freeGraph();
     return 0;
