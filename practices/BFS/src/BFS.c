@@ -15,20 +15,21 @@ initGraph(int vertexCount)
 }
 
 void
-freeGraph(Graph* graph)
-{
-    for (int i = 0; i < graph->vertexCount; i++)
-    {
-        Edge* edge = graph->vertices[i].edges;
-        while (edge)
-        {
-            Edge* temp = edge;
-            edge = edge->next;
-            free(temp);
+freeGraph(Graph** graphPtr) {
+    if (graphPtr && *graphPtr) {
+        Graph* graph = *graphPtr;
+        for (int i = 0; i < graph->vertexCount; i++) {
+            Edge* edge = graph->vertices[i].edges;
+            while (edge) {
+                Edge* temp = edge;
+                edge = edge->next;
+                free(temp);
+            }
         }
+        free(graph->vertices);
+        free(graph);
+        *graphPtr = NULL;
     }
-    free(graph->vertices);
-    free(graph);
 }
 
 void 
