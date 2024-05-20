@@ -21,7 +21,8 @@ TESTS_DIR=tests
 
 TEST_SOURCES!=find $(TESTS_DIR) -name '*.c'
 TEST_OBJECTS=$(TEST_SOURCES:.c=.o)
-MAIN_OBJECTS=$(filter-out src/principal.o,$(SOURCES:.c=.o))
+MAIN_OBJECTS:=${SOURCES:.c=.o}
+MAIN_OBJECTS:=${MAIN_OBJECTS:Nsrc/principal.o}
 
 test: $(TEST_TARGET)
 
