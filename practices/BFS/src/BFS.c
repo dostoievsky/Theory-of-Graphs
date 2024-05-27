@@ -32,65 +32,48 @@ freeGraph(Graph** graphPtr) {
     }
 }
 
-void 
-addEdge(Graph* graph, int origin, int destiny, int weight) 
-{
+void addEdge(Graph* graph, int origin, int destiny, int weight) {
     Edge* newEdge = (Edge*)malloc(sizeof(Edge));
     newEdge->destiny = destiny;
     newEdge->weight = weight;
-    newEdge->next = graph->vertices[origin].edges;
-    graph->vertices[origin].edges = newEdge;
-}
+    newEdge->next = NULL;
 
-void
-BFS(Graph* graph, int index)
-{
-    Queue q;
-    initQueue(&q, graph->vertexCount);
-    graph->vertices[index].visited = 1;
-    enqueue(&q, graph->vertices[index]);
-    while(!isQueueEmpty(&q))
-    {
-        Vertex* vertex;
-        dequeue(&q, vertex);
-        Edge* edge = vertex->edges;
-        while (edge)
-        {
-            if (!graph->vertices[edge->destiny].visited) 
-            {
-                graph->vertices[edge->destiny].visited = 1;
-                enqueue(&q, graph->vertices[edge->destiny]);
-            }
-            edge = edge->next;
-        }
+    Edge** edgePtr = &graph->vertices[origin].edges;
+    while (*edgePtr != NULL) {
+        edgePtr = &(*edgePtr)->next;
     }
-    freeQueue(&q);
+    *edgePtr = newEdge;
 }
 
 void 
-initQueue(Queue* q, int size) 
-{
-    q->items = (Vertex*)malloc(sizeof(Vertex) * size);  
+initQueue(Queue* q, int size) {
+    q->items = (void**)malloc(sizeof(void*) * size);  
     q->capacity = size;
     q->front = 0;
-    q->rear = -1;      
+    q->rear = -1;
     q->size = 0;
 }
 
-
 void 
-enqueue(Queue* q, Vertex element) 
-{
-    q->rear = (q->rear + 1) % q->capacity; 
-    q->items[q->rear] = element; 
+enqueue(Queue* q, void* element) {
+    if (q->size == q->capacity) {
+        return;
+    }
+
+    q->rear = (q->rear + 1) % q->capacity;
+    q->items[q->rear] = element;
     q->size++;
 }
 
-void
-dequeue(Queue* q, Vertex* element)
-{
-    *element = q->items[q->front]; 
-    q->front = (q->front + 1) % q->capacity; 
+void 
+dequeue(Queue* q, void** element) {
+    if (q->size == 0) {
+        *element = NULL;
+        return;
+    }
+
+    *element = q->items[q->front];
+    q->front = (q->front + 1) % q->capacity;
     q->size--;
 }
 
@@ -105,47 +88,34 @@ freeQueue(Queue* q)
     q->size = 0;
 }
 
-void 
-initstack(Stack *s) 
-{
-    s->items = NULL;
-    s->top = -1;
-}
+void BFS(Graph* graph, int startIndex, Queue* path) {
+    Queue q;
+    initQueue(&q, graph->vertexCount);
 
-void 
-push(Stack *s, int item) 
-{
-    int newTop = s->top + 1;
-    int *newItems = realloc(s->items, (newTop + 1) * sizeof(int));
-    s->items = newItems;
-    s->items[newTop] = item;
-    s->top = newTop;
-}
+    graph->vertices[startIndex].visited = 1;
+    enqueue(&q, &(graph->vertices[startIndex]));
 
-void 
-pop(Stack *s, int *item) 
-{
-    if (isStackEmpty(s)) { return; }
-
-    *item = s->items[s->top];
-    s->top--;
-
-    if (s->top >= 0) 
-    {
-        int *newItems = realloc(s->items, (s->top + 1) * sizeof(int));
-        if (newItems) {
-            s->items = newItems;
-        }
-    } else {
-        free(s->items);
-        s->items = NULL;
+    if (path != NULL) {
+        enqueue(path, (void *)(uintptr_t)startIndex);
     }
 
-}
+    while (!isQueueEmpty(&q)) {
+        Vertex *currentVertex;
+        dequeue(&q, (void **)&currentVertex);
+        
+        Edge *edge = currentVertex->edges;
+        while (edge) {
+            if (!graph->vertices[edge->destiny].visited) {
+                graph->vertices[edge->destiny].visited = 1;
+                enqueue(&q, &(graph->vertices[edge->destiny]));
 
-void freeStack(Stack *s) 
-{
-    free(s->items);
-    s->items = NULL;
-    s->top = -1;
+                if (path != NULL) {
+                    enqueue(path, (void *)(uintptr_t)edge->destiny);
+                }
+            }
+            edge = edge->next;
+        }
+    }
+
+    freeQueue(&q);
 }
