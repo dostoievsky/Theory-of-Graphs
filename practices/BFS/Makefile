@@ -32,7 +32,7 @@ $(TEST_TARGET): $(TEST_OBJECTS) $(MAIN_OBJECTS)
 	@echo "Running test..."
 	./$(TEST_TARGET)
 clean:
-	rm -f $(TARGET) $(TEST_BINARIES) $(OBJECTS) $(TEST_OBJECTS)
+	rm -f $(TARGET) $(TEST_BINARIES) $(OBJECTS) $(TEST_OBJECTS) $(MAIN_OBJECTS)
 
 .PHONY: build test clean
 
