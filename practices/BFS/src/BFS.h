@@ -1,3 +1,6 @@
+#ifndef BFS_H
+#define BFS_H
+
 #include <stdlib.h>
 
 typedef struct Edge
@@ -38,3 +41,5 @@ static inline int isQueueEmpty(const Queue* q) { return q->size == 0; }
 void freeQueue(Queue* q);
 
 void BFS(Graph* graph, int index, Queue* path);
+
+#endif
