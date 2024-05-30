@@ -145,7 +145,7 @@ void test_freeQueue() {
     assert(queue.size == 0);
 }
 
-void test_BFS() {
+void test_BFS_NullPath() {
     int vertexCount = 4;
     Graph* graph = initGraph(vertexCount);
     
@@ -165,6 +165,35 @@ void test_BFS() {
     freeGraph(&graph);
 }
 
+void 
+test_BFS_WithPath() {
+    int vertexCount = 4;
+    Graph* graph = initGraph(vertexCount);
+    
+    addEdge(graph, 0, 1, 1);
+    addEdge(graph, 0, 2, 1);
+    addEdge(graph, 0, 3, 1);
+    addEdge(graph, 1, 2, 1);
+    addEdge(graph, 1, 3, 1);
+    addEdge(graph, 2, 3, 1);
+
+    Queue path;
+    initQueue(&path, graph->vertexCount);
+    BFS(graph, 0, &path);
+
+    int vertexIndex;
+    void *item;
+    for (int i = 0; i < vertexCount; i++) {
+        assert(graph->vertices[i].visited == 1);
+        dequeue(&path, &item);
+        vertexIndex = (int)(size_t)item;
+        assert(vertexIndex == i);
+    }
+
+    freeGraph(&graph);
+    freeQueue(&path);
+}
+
 int 
 main() 
 {
@@ -178,7 +207,8 @@ main()
     test_dequeue();
     test_freeQueue();
 
-    test_BFS();
+    test_BFS_NullPath();
+    test_BFS_WithPath();
 
     return 0;
 }
