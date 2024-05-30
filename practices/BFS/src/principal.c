@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "BFS.h"
 
-int main(int argc, char *argv[]) {
+int
+main(int argc, char *argv[])
+{
     int n, m, b, i;
 
     scanf("%d %d %d %d", &n, &m, &b, &i);

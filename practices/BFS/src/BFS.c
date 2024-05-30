@@ -15,7 +15,8 @@ initGraph(int vertexCount)
 }
 
 void
-freeGraph(Graph** graphPtr) {
+freeGraph(Graph** graphPtr)
+{
     if (graphPtr && *graphPtr) {
         Graph* graph = *graphPtr;
         for (int i = 0; i < graph->vertexCount; i++) {
@@ -32,7 +33,9 @@ freeGraph(Graph** graphPtr) {
     }
 }
 
-void addEdge(Graph* graph, int origin, int destiny, int weight) {
+void 
+addEdge(Graph* graph, int origin, int destiny, int weight)
+{
     Edge* newEdge = (Edge*)malloc(sizeof(Edge));
     newEdge->destiny = destiny;
     newEdge->weight = weight;
@@ -46,7 +49,8 @@ void addEdge(Graph* graph, int origin, int destiny, int weight) {
 }
 
 void 
-initQueue(Queue* q, int size) {
+initQueue(Queue* q, int size)
+{
     q->items = (void**)malloc(sizeof(void*) * size);  
     q->capacity = size;
     q->front = 0;
@@ -55,7 +59,8 @@ initQueue(Queue* q, int size) {
 }
 
 void 
-enqueue(Queue* q, void* element) {
+enqueue(Queue* q, void* element)
+{
     if (q->size == q->capacity) {
         return;
     }
@@ -66,7 +71,8 @@ enqueue(Queue* q, void* element) {
 }
 
 void 
-dequeue(Queue* q, void** element) {
+dequeue(Queue* q, void** element)
+{
     if (q->size == 0) {
         *element = NULL;
         return;
@@ -88,7 +94,9 @@ freeQueue(Queue* q)
     q->size = 0;
 }
 
-void BFS(Graph* graph, int startIndex, Queue* path) {
+void 
+BFS(Graph* graph, int startIndex, Queue* path)
+{
     Queue q;
     initQueue(&q, graph->vertexCount);
 

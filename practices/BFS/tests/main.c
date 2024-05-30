@@ -89,7 +89,9 @@ test_addEdge()
     assert(found == 1);
 }
 
-void test_initQueue() {
+void 
+test_initQueue() 
+{
     int size = getRandomValue();
     Queue queue;
     initQueue(&queue, size);
@@ -101,7 +103,9 @@ void test_initQueue() {
     free(queue.items);
 }
 
-void test_enqueue() {
+void 
+test_enqueue() 
+{
     Queue queue;
     initQueue(&queue, 2);
     Vertex *v1 = malloc(sizeof(Vertex));
@@ -115,7 +119,9 @@ void test_enqueue() {
     freeQueue(&queue);
 }
 
-void test_dequeue() {
+void 
+test_dequeue() 
+{
     Queue queue;
     initQueue(&queue, 2);
     Vertex *v1 = malloc(sizeof(Vertex));
@@ -134,7 +140,9 @@ void test_dequeue() {
     freeQueue(&queue);
 }
 
-void test_freeQueue() {
+void 
+test_freeQueue()
+{
     Queue queue;
     initQueue(&queue, 2);
     freeQueue(&queue);
@@ -145,7 +153,9 @@ void test_freeQueue() {
     assert(queue.size == 0);
 }
 
-void test_BFS_NullPath() {
+void 
+test_BFS_NullPath()
+{
     int vertexCount = 4;
     Graph* graph = initGraph(vertexCount);
     
@@ -166,7 +176,8 @@ void test_BFS_NullPath() {
 }
 
 void 
-test_BFS_WithPath() {
+test_BFS_WithPath() 
+{
     int vertexCount = 4;
     Graph* graph = initGraph(vertexCount);
     
