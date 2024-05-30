@@ -96,7 +96,7 @@ void BFS(Graph* graph, int startIndex, Queue* path) {
     enqueue(&q, &(graph->vertices[startIndex]));
 
     if (path != NULL) {
-        enqueue(path, (void *)(uintptr_t)startIndex);
+        enqueue(path, (void *)(size_t)startIndex);
     }
 
     while (!isQueueEmpty(&q)) {
@@ -110,7 +110,7 @@ void BFS(Graph* graph, int startIndex, Queue* path) {
                 enqueue(&q, &(graph->vertices[edge->destiny]));
 
                 if (path != NULL) {
-                    enqueue(path, (void *)(uintptr_t)edge->destiny);
+                    enqueue(path, (void *)(size_t)edge->destiny);
                 }
             }
             edge = edge->next;
