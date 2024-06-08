@@ -7,11 +7,11 @@
     "
     align="left"
     height="220"
-    src="../assets/ufop.png" 
+    src="../../assets/ufop.png" 
 />
 
 ### Universidade Federal de Ouro Preto
-#### Disciplina: BCC206 - Teoria dos Grafos
+#### Disciplina: BCC204 - Teoria dos Grafos
 ##### Professor: Marco Antonio M. Carvalho
 
 <hr/>
