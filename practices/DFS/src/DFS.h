@@ -19,6 +19,7 @@ typedef struct Vertex
 typedef struct Graph 
 {
     int vertexCount;
+    int type;
     struct Vertex* vertices;
 } Graph;
 
@@ -30,7 +31,7 @@ typedef struct {
     int size;
 } Queue;
 
-Graph* initGraph(int vertexCount);
+Graph* initGraph(int vertexCount, int type);
 void freeGraph(Graph** graph);
 void addEdge(Graph* graph, int origin, int destiny, int weight);
 

@@ -1,10 +1,11 @@
 #include "BFS.h"
 
 Graph*
-initGraph(int vertexCount)
+initGraph(int vertexCount, int type)
 {
     Graph* graph = (Graph*)malloc(sizeof(Graph));
     graph->vertexCount = vertexCount;
+    graph->type = type;
     graph->vertices = (Vertex*)malloc(sizeof(Vertex) * vertexCount);
     for (int i = 0; i < vertexCount; i++)
     {

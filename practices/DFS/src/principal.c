@@ -8,7 +8,7 @@ main(int argc, char *argv[])
 
     scanf("%d %d %d %d", &n, &m, &b, &i);
 
-    Graph* graph = initGraph(m);
+    Graph* graph = initGraph(m, b);
 
     for (int j = 0; j < m; j++) {
         int o, d, p;

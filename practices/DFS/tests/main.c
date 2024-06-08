@@ -17,7 +17,7 @@ void
 test_initGraph()
 {
     int vertexCount = getRandomValue();
-    Graph *graph = initGraph(vertexCount);
+    Graph *graph = initGraph(vertexCount, 0);
     assert(graph != NULL);
     assert(graph->vertexCount == vertexCount);
     for (int i = 0; i < vertexCount; i++) {
@@ -30,7 +30,7 @@ void
 test_freeGraph()
 {
     int vertexCount = getRandomValue();
-    Graph *graph = initGraph(vertexCount);
+    Graph *graph = initGraph(vertexCount, 0);
     assert(graph != NULL);
     assert(graph->vertexCount == vertexCount);
     freeGraph(&graph);
@@ -42,7 +42,7 @@ void
 test_addEdge()
 {
     int vertexCount = getRandomValue();
-    Graph *graph = initGraph(vertexCount);
+    Graph *graph = initGraph(vertexCount, 0);
     assert(graph != NULL);
 
     int origin, destiny;
@@ -157,7 +157,7 @@ void
 test_BFS_NullPath()
 {
     int vertexCount = 4;
-    Graph* graph = initGraph(vertexCount);
+    Graph *graph = initGraph(vertexCount, 0);
     
     addEdge(graph, 0, 1, 1);
     addEdge(graph, 0, 2, 1);
@@ -179,7 +179,7 @@ void
 test_BFS_WithPath() 
 {
     int vertexCount = 4;
-    Graph* graph = initGraph(vertexCount);
+    Graph *graph = initGraph(vertexCount, 0);
     
     addEdge(graph, 0, 1, 1);
     addEdge(graph, 0, 2, 1);
@@ -205,6 +205,38 @@ test_BFS_WithPath()
     freeQueue(&path);
 }
 
+void 
+test_BFS_Directed_NotAllVisited()
+{
+    int vertexCount = 4;
+    Graph *graph = initGraph(vertexCount, 1);
+    
+    addEdge(graph, 0, 1, 1);
+    addEdge(graph, 1, 2, 1);
+
+    Queue path;
+    initQueue(&path, graph->vertexCount);
+    BFS(graph, 0, &path);
+
+    assert(graph->vertices[0].visited == 1);
+    assert(graph->vertices[1].visited == 1);
+    assert(graph->vertices[2].visited == 1);
+    assert(graph->vertices[3].visited == 0);
+
+    int visitedOrder[] = {0, 1, 2};
+    void *item;
+    for (int i = 0; i < 3; i++) {
+        dequeue(&path, &item);
+        int vertexIndex = (int)(size_t)item;
+        assert(vertexIndex == visitedOrder[i]);
+    }
+
+    assert(isQueueEmpty(&path));
+
+    freeGraph(&graph);
+    freeQueue(&path);
+}
+
 int 
 main() 
 {
@@ -220,6 +252,7 @@ main()
 
     test_BFS_NullPath();
     test_BFS_WithPath();
+    test_BFS_Directed_NotAllVisited();
 
     return 0;
 }
