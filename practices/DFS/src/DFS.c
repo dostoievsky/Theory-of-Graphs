@@ -91,7 +91,34 @@ freeQueue(Queue* q)
 }
 
 void 
-DFS(Graph* graph, int startIndex, Queue* path)
+DFS(Graph* graph, int index, Queue* path)
 {
-
+    graph->vertices[index][index].visited = 1;
+    if (path != NULL) {
+        enqueue(path, (void *)(size_t)index);
+    }
+    for (int i = 0; i < graph->vertexCount; i++)
+    {
+        if (graph->vertices[index][i].connected == 1) 
+        {
+            if (graph->vertices[i][i].visited == 0) 
+            {
+                graph->vertices[index][i].visited = 1;
+                if (graph->type == 0)
+                {
+                    graph->vertices[i][index].visited = 1;
+                }
+                DFS(graph, i, path);
+            } else {
+                if (graph->vertices[index][i].visited == 0) 
+                {
+                    graph->vertices[index][i].visited = 1;
+                    if (graph->type == 0)
+                    {
+                        graph->vertices[i][index].visited = 1;
+                    }
+                }
+            }
+        }
+    }
 }

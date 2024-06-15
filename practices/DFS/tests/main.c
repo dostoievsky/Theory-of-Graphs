@@ -138,18 +138,89 @@ test_freeQueue()
 void 
 test_DFS_NullPath()
 {
+    int vertexCount = 4;
+    Graph *graph = initGraph(vertexCount, 0);
+    
+    addEdge(graph, 0, 1, 1);
+    addEdge(graph, 0, 2, 1);
+    addEdge(graph, 0, 3, 1);
+    addEdge(graph, 1, 2, 1);
+    addEdge(graph, 1, 3, 1);
+    addEdge(graph, 2, 3, 1);
 
+    DFS(graph, 0, NULL);
+
+    for (int i = 0; i < vertexCount; i++) {
+        for (int j = 0; j < vertexCount; j++) {
+            assert(graph->vertices[i][j].visited == 1);
+        }
+    }
+
+    freeGraph(&graph);
 }
 
 void 
 test_DFS_WithPath() 
 {
+    int vertexCount = 4;
+    Graph *graph = initGraph(vertexCount, 0);
+    
+    addEdge(graph, 0, 1, 1);
+    addEdge(graph, 0, 2, 1);
+    addEdge(graph, 0, 3, 1);
+    addEdge(graph, 1, 2, 1);
+    addEdge(graph, 1, 3, 1);
+    addEdge(graph, 2, 3, 1);
 
+    Queue path;
+    initQueue(&path, graph->vertexCount);
+    DFS(graph, 0, &path);
+
+    int vertexIndex;
+    void *item;
+    for (int i = 0; i < vertexCount; i++) {
+        dequeue(&path, &item);
+        vertexIndex = (int)(size_t)item;
+        assert(vertexIndex == i);
+        for (int j = 0; j < vertexCount; j++) {
+            assert(graph->vertices[i][j].visited == 1);
+        }
+    }
+
+    freeGraph(&graph);
+    freeQueue(&path);
 }
 
 void 
 test_DFS_Directed_NotAllVisited()
 {
+    int vertexCount = 4;
+    Graph *graph = initGraph(vertexCount, 1);
+    
+    addEdge(graph, 0, 1, 1);
+    addEdge(graph, 1, 2, 1);
+
+    Queue path;
+    initQueue(&path, graph->vertexCount);
+    DFS(graph, 0, &path);
+
+    assert(graph->vertices[0][0].visited == 1);
+    assert(graph->vertices[1][1].visited == 1);
+    assert(graph->vertices[2][2].visited == 1);
+    assert(graph->vertices[3][3].visited == 0);
+
+    int visitedOrder[] = {0, 1, 2};
+    void *item;
+    for (int i = 0; i < 3; i++) {
+        dequeue(&path, &item);
+        int vertexIndex = (int)(size_t)item;
+        assert(vertexIndex == visitedOrder[i]);
+    }
+
+    assert(isQueueEmpty(&path));
+
+    freeGraph(&graph);
+    freeQueue(&path);
 
 }
 
@@ -165,7 +236,6 @@ main()
     test_enqueue();
     test_dequeue();
     test_freeQueue();
-
 
     test_DFS_NullPath();
     test_DFS_WithPath();

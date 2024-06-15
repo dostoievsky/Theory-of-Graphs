@@ -19,7 +19,7 @@ main(int argc, char *argv[])
     Queue path;
     initQueue(&path, graph->vertexCount);
 
-    BFS(graph, i-1, &path);
+    DFS(graph, i-1, &path);
 
     int vertexIndex;
     void *item;
