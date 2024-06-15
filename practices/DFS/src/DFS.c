@@ -6,11 +6,17 @@ initGraph(int vertexCount, int type)
     Graph* graph = (Graph*)malloc(sizeof(Graph));
     graph->vertexCount = vertexCount;
     graph->type = type;
-    graph->vertices = (Vertex*)malloc(sizeof(Vertex) * vertexCount);
+    graph->vertices = (Vertex**) malloc(sizeof(Vertex*) * vertexCount);
+
     for (int i = 0; i < vertexCount; i++)
     {
-        graph->vertices[i].edges = NULL;
-        graph->vertices[i].visited = 0;
+        graph->vertices[i] = (Vertex*) malloc(sizeof(Vertex) * vertexCount);
+        for (int j = 0; j < vertexCount; j++) 
+        {
+            graph->vertices[i][j].connected = 0;
+            graph->vertices[i][j].weight = 0;
+            graph->vertices[i][j].visited = 0;
+        }
     }
     return graph;
 }
@@ -18,16 +24,9 @@ initGraph(int vertexCount, int type)
 void
 freeGraph(Graph** graphPtr)
 {
-    if (graphPtr && *graphPtr) {
+    if (graphPtr && *graphPtr) 
+    {
         Graph* graph = *graphPtr;
-        for (int i = 0; i < graph->vertexCount; i++) {
-            Edge* edge = graph->vertices[i].edges;
-            while (edge) {
-                Edge* temp = edge;
-                edge = edge->next;
-                free(temp);
-            }
-        }
         free(graph->vertices);
         free(graph);
         *graphPtr = NULL;
@@ -37,16 +36,12 @@ freeGraph(Graph** graphPtr)
 void 
 addEdge(Graph* graph, int origin, int destiny, int weight)
 {
-    Edge* newEdge = (Edge*)malloc(sizeof(Edge));
-    newEdge->destiny = destiny;
-    newEdge->weight = weight;
-    newEdge->next = NULL;
-
-    Edge** edgePtr = &graph->vertices[origin].edges;
-    while (*edgePtr != NULL) {
-        edgePtr = &(*edgePtr)->next;
+    graph->vertices[origin][destiny].connected = 1;
+    graph->vertices[origin][destiny].weight = weight;
+    if (graph->type == 0) 
+    {
+        graph->vertices[destiny][origin] = graph->vertices[origin][destiny];
     }
-    *edgePtr = newEdge;
 }
 
 void 
@@ -96,35 +91,7 @@ freeQueue(Queue* q)
 }
 
 void 
-BFS(Graph* graph, int startIndex, Queue* path)
+DFS(Graph* graph, int startIndex, Queue* path)
 {
-    Queue q;
-    initQueue(&q, graph->vertexCount);
 
-    graph->vertices[startIndex].visited = 1;
-    enqueue(&q, &(graph->vertices[startIndex]));
-
-    if (path != NULL) {
-        enqueue(path, (void *)(size_t)startIndex);
-    }
-
-    while (!isQueueEmpty(&q)) {
-        Vertex *currentVertex;
-        dequeue(&q, (void **)&currentVertex);
-        
-        Edge *edge = currentVertex->edges;
-        while (edge) {
-            if (!graph->vertices[edge->destiny].visited) {
-                graph->vertices[edge->destiny].visited = 1;
-                enqueue(&q, &(graph->vertices[edge->destiny]));
-
-                if (path != NULL) {
-                    enqueue(path, (void *)(size_t)edge->destiny);
-                }
-            }
-            edge = edge->next;
-        }
-    }
-
-    freeQueue(&q);
 }

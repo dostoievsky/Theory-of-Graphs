@@ -3,16 +3,10 @@
 
 #include <stdlib.h>
 
-typedef struct Edge
-{
-    int destiny;
-    int weight;
-    struct Edge* next;
-} Edge;
-
 typedef struct Vertex
 {
-    struct Edge* edges;
+    int connected;
+    int weight;
     int visited;
 } Vertex;
 
@@ -20,7 +14,7 @@ typedef struct Graph
 {
     int vertexCount;
     int type;
-    struct Vertex* vertices;
+    struct Vertex** vertices;
 } Graph;
 
 typedef struct {
@@ -41,6 +35,6 @@ void dequeue(Queue* q, void** element);
 static inline int isQueueEmpty(const Queue* q) { return q->size == 0; }
 void freeQueue(Queue* q);
 
-void BFS(Graph* graph, int index, Queue* path);
+void DFS(Graph* graph, int index, Queue* path);
 
 #endif
