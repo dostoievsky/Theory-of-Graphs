@@ -279,7 +279,7 @@ end
 
 ```mermaid
 graph TB;
-subgraph "(2)"
+subgraph "(3)"
 1(( )); 2(( )); 3(( ));
 4(( )); 5(( )); 6(( ));
 7(( )); 8(( )); 
@@ -306,12 +306,103 @@ style 7 fill:#FF0000
 end
 ```
 
+Apenas os grafos 1 e 2.
+
 <hr/>
 
-10. Construa dois grafos de 5 vértices e 8 arestad que não sejam 
+10. Construa dois grafos de 5 vértices e 8 arestas que não sejam 
     isomorfos. Prove que ambos não são isomorfos.
 
 11. Dentre os grafos abaixo, determine se há pares de grafos isomorfos.
+
+```mermaid
+graph TB;
+subgraph "(1)"
+1(( )); 2(( )); 3(( ));
+4(( )); 5(( )); 6(( ));
+7(( )); 8(( )); 
+
+
+1 --- 2 & 6 & 8;
+2 --- 3 & 5;
+3 --- 4 & 8;
+4 --- 5 & 7;
+5 --- 6;
+6 --- 7;
+7 --- 8;
+
+end
+```
+```mermaid
+graph TB;
+subgraph "(2)"
+1(( )); 2(( )); 3(( ));
+4(( )); 5(( )); 6(( ));
+7(( )); 8(( )); 
+
+
+1 --- 2 & 6 & 8;
+2 --- 3 & 5;
+3 --- 4 & 7;
+4 --- 5 & 8;
+5 --- 6;
+6 --- 7;
+7 --- 8;
+
+end
+```
+```mermaid
+graph TB;
+subgraph "(3)"
+1(( )); 2(( )); 3(( ));
+4(( )); 5(( )); 6(( ));
+7(( )); 8(( )); 
+
+
+1 --- 2 & 3 & 7;
+2 --- 4 & 8;
+3 --- 4 & 5;
+4 --- 6;
+5 --- 6 & 7;
+6 --- 8;
+
+end
+```
+```mermaid
+graph TB;
+subgraph "(4)"
+1(( )); 2(( )); 3(( ));
+4(( )); 5(( )); 6(( ));
+7(( )); 8(( )); 
+
+1 --- 2 & 4 & 7;
+2 --- 4 & 5;
+3 --- 6 & 8;
+4 --- 5 & 7;
+5 --- 6;
+6 --- 7;
+7 --- 8;
+
+end
+```
+
+```mermaid
+graph TB;
+subgraph "(5)"
+1(( )); 2(( )); 3(( ));
+4(( )); 5(( )); 6(( ));
+7(( )); 8(( )); 
+end
+```
+
+```mermaid
+graph TB;
+subgraph "(6)"
+1(( )); 2(( )); 3(( ));
+4(( )); 5(( )); 6(( ));
+7(( )); 8(( )); 
+end
+```
 
 12. Prove que uma aresta e de um grafo é uma ponte se e somente se ela 
     não fizer parte de nenhum ciclo deste mesmo grafo.
