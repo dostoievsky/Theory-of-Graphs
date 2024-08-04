@@ -170,6 +170,32 @@ subgraph "(1)"
 end
 ```
 
+```mermaid
+graph TB;
+subgraph "(2)"
+1((1)); 2((2)); 3((3));
+4((4)); 5((5)); 6((6));
+1 --- 3 & 5;
+2 --- 4 & 6;
+3 --- 6;
+end
+```
+
+```mermaid
+graph TB;
+subgraph "(3)"
+1((1)); 2((2)); 3((3));
+4((4)); 5((5)); 6((6));
+7((7)); 
+1 --- 2 & 4 & 5 & 6;
+2 --- 3 & 4 & 6;
+3 --- 5 & 6;
+4 --- 7;
+end
+```
+
+<hr/>
+
 6.  Forneça um exemplo, se existir, de um grafo bipartido e regular.
 
 7.  Forneça um exemplo, se existir, de um grafo em que k(G) < \delta(G).
