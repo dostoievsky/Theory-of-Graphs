@@ -85,15 +85,15 @@ end
     vértice 1.
 
 ```math
-\text{\textcircled 1}  f(1) = {2,3,4,5,6,7,8,9,10,11,12,13,14,15}
+f(1) = {2,3,4,5,6,7,8,9,10,11,12,13,14,15}
 ```
 
 ```math
-\text{\textcircled 2}  f(1) = {2,3,4,5,6}
+f(1) = {2,3,4,5,6}
 ```
 
 ```math
-\text{\textcircled 3} f(1) = {2,3,4,5,6,7}
+f(1) = {2,3,4,5,6,7}
 ```
 <hr/>
 
@@ -108,15 +108,15 @@ end
 ```
 
 ```math
-\text{\textcircled 1}  \kappa(G) = 2
+\kappa(G) = 2
 ```
 
 ```math
-\text{\textcircled 2}  \kappa(G) = 1
+\kappa(G) = 1
 ```
 
 ```math
-\text{\textcircled 3} \kappa(G) = 1 
+\kappa(G) = 1 
 ```
 
 <hr/>
@@ -128,15 +128,15 @@ end
 ```
 
 ```math
-\text{\textcircled 1}  \delta(G) = 2  
+\delta(G) = 2  
 ```
 
 ```math
-\text{\textcircled 2}  \delta(G) = 1
+\delta(G) = 1
 ```
 
 ```math
-\text{\textcircled 3} \delta(G)  = 2 
+\delta(G)  = 2 
 ```
 
 <hr/>
