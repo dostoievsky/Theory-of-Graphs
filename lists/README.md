@@ -198,6 +198,25 @@ end
 
 6.  Forneça um exemplo, se existir, de um grafo bipartido e regular.
 
+```mermaid
+graph TB;
+subgraph "(1)"
+A(( )); B(( )); 
+C(( )); D(( )); 
+
+A --- B;
+B --- C 
+C --- D;
+D --- A;
+
+style A fill:#0000FF
+style B fill:#FF0000
+style C fill:#0000FF
+style D fill:#FF0000
+
+end
+```
+
 7.  Forneça um exemplo, se existir, de um grafo em que k(G) < \delta(G).
 
 8.  Prove que um grafo simples que contém n vértices é necessariamente
