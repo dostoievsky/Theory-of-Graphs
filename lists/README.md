@@ -22,6 +22,16 @@
     Embora a idéia seja boa, a escultura é impossível.
     Porquê?
 
+Teorema do Aperto de Mãos:
+
+```math
+\displaystyle\sum_{i=1}^n d(i) = 2m
+```
+
+**O numero de vértices de grau impar em um GND é par.**
+
+Ou seja este grafo deve ter ter grau par mas seu grau é 3*7 = 21
+
 <hr/>
 
 ```mermaid
