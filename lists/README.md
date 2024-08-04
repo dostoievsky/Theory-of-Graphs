@@ -123,6 +123,24 @@ end
 
 4.  Para os três grafos da figura acima, determine $\delta(G)$.
 
+```math
+\kappa(G)  \leq \delta(G)^a
+```
+
+```math
+\text{\textcircled 1}  \delta(G) = 2  
+```
+
+```math
+\text{\textcircled 2}  \delta(G) = 1
+```
+
+```math
+\text{\textcircled 3} \delta(G)  = 2 
+```
+
+<hr/>
+
 5.  Para os três grafos da figura acima, determine o grafo complemento.
 
 6.  Forneça um exemplo, se existir, de um grafo bipartido e regular.
