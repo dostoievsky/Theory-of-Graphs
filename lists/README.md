@@ -99,6 +99,28 @@ end
 
 3.  Para os três grafos da figura acima, determine k(G).
 
+```math
+\kappa(K_{(n)})  n - 1
+```
+
+```math
+\kappa(G)  \leq  n − 2  \forall  G {=}\mathllap{/\,}  K_{(n)}
+```
+
+```math
+\text{\textcircled 1}  \kappa(G) = 2
+```
+
+```math
+\text{\textcircled 2}  \kappa(G) = 1
+```
+
+```math
+\text{\textcircled 3} \kappa(G) = 1 
+```
+
+<hr/>
+
 4.  Para os três grafos da figura acima, determine $\delta(G)$.
 
 5.  Para os três grafos da figura acima, determine o grafo complemento.
