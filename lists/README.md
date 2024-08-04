@@ -84,6 +84,19 @@ end
 2.  Para os três grafos da figura acima, determine o fecho trasitivo do 
     vértice 1.
 
+```math
+\text{\textcircled 1}  f(1) = {2,3,4,5,6,7,8,9,10,11,12,13,14,15}
+```
+
+```math
+\text{\textcircled 2}  f(1) = {2,3,4,5,6}
+```
+
+```math
+\text{\textcircled 3} f(1) = {2,3,4,5,6,7}
+```
+<hr/>
+
 3.  Para os três grafos da figura acima, determine k(G).
 
 4.  Para os três grafos da figura acima, determine $\delta(G)$.
