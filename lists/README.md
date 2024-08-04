@@ -205,6 +205,81 @@ end
 
 9.  Indique quais dos três grafos abaixo é bipartido.
 
+```mermaid
+graph TB;
+subgraph "(1)"
+A(( )); B(( )); C(( )); 
+D(( )); E(( ));
+
+A --- B;
+B --- C & D;
+C --- E;
+D --- E;
+
+style A fill:#0000FF
+style C fill:#0000FF
+style D fill:#0000FF
+
+style B fill:#FF0000
+style E fill:#FF0000
+
+end
+```
+
+```mermaid
+graph TB;
+subgraph "(2)"
+1(( )); 2(( )); 3(( ));
+4(( )); 5(( )); 6(( ));
+7(( )); 8(( )); 9(( ));
+
+1 --- 2 & 4;
+2 --- 1 & 3 & 5;
+3 --- 2 & 6;
+
+4 --- 1 & 5 & 7;
+5 --- 2 & 4 & 6 & 8; 
+6 --- 3 & 5 & 9; 
+
+7 --- 4 & 8;
+8 --- 5 & 7 & 9;
+9 --- 6 & 8;
+
+style 1 fill:#0000FF
+style 3 fill:#0000FF
+style 5 fill:#0000FF
+style 7 fill:#0000FF
+style 9 fill:#0000FF
+
+style 2 fill:#FF0000
+style 4 fill:#FF0000
+style 6 fill:#FF0000
+style 8 fill:#FF0000
+
+end
+```
+
+```mermaid
+graph TB;
+subgraph "(2)"
+1(( )); 2(( )); 3(( ));
+4(( )); 5(( )); 6(( ));
+7(( )); 8(( )); 
+
+
+1 --- 2 & 3;
+2 --- 1 & 4 & 5;
+3 --- 1 & 4 & 6;
+4 --- 2 & 3 & 7;
+5 --- 2 & 8;
+6 --- 3 & 7 & 8;
+7 --- 4 & 6 & 8;
+8 --- 6 & 7
+end
+```
+
+<hr/>
+
 10. Construa dois grafos de 5 vértices e 8 arestad que não sejam 
     isomorfos. Prove que ambos não são isomorfos.
 
